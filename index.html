@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurant</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#15110e;
+    color:#eee;
+    font-family:Arial,sans-serif;
+    min-height:100vh;
+    overflow:hidden;
+}
+
+.home{
+    width:100%;
+    height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.background{
+    position:absolute;
+    inset:0;
+    background-image:url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=2000&q=85");
+    background-size:cover;
+    background-position:center;
+    filter:brightness(.3);
+    transform:scale(1.03);
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(21,17,14,.35);
+}
+
+.content{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    width:90%;
+    max-width:700px;
+}
+
+.logo{
+    color:#e87932;
+    font-size:16px;
+    letter-spacing:7px;
+    margin-bottom:20px;
+}
+
+h1{
+    font-size:70px;
+    letter-spacing:8px;
+    margin-bottom:50px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+}
+
+.button{
+    width:220px;
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid #e87932;
+    color:#e87932;
+    text-decoration:none;
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:4px;
+    background:rgba(21,17,14,.8);
+    border-radius:4px;
+    transition:
+        background .35s ease,
+        color .35s ease,
+        transform .35s ease,
+        box-shadow .35s ease;
+}
+
+.button:hover{
+    background:#e87932;
+    color:#15110e;
+    transform:translateY(-5px);
+    box-shadow:0 10px 30px rgba(232,121,50,.2);
+}
+
+.vertical{
+    position:absolute;
+    right:20px;
+    top:30px;
+    writing-mode:vertical-rl;
+    color:#777;
+    font-size:11px;
+    letter-spacing:5px;
+    z-index:3;
+}
+
+@media(max-width:700px){
+
+    h1{
+        font-size:45px;
+        letter-spacing:5px;
+        margin-bottom:40px;
+    }
+
+    .buttons{
+        flex-direction:column;
+        align-items:center;
+        gap:15px;
+    }
+
+    .button{
+        width:230px;
+        height:65px;
+        font-size:18px;
+    }
+
+    .vertical{
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="home">
+
+    <div class="background"></div>
+    <div class="overlay"></div>
+
+    <div class="vertical">
+        RESTAURANT
+    </div>
+
+    <div class="content">
+
+        <div class="logo">
+            RESTAURANT
+        </div>
+
+        <h1>MENU</h1>
+
+        <div class="buttons">
+
+            <a href="menu.html" class="button">
+                MENU
+            </a>
+
+            <a href="bar.html" class="button">
+                BAR
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
