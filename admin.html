@@ -1,0 +1,2154 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin — KURKODIK</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#0d0d0d;
+  color:#fff;
+  padding:15px;
+}
+
+button,input,textarea,select{
+  font-family:inherit;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.container{
+  width:100%;
+  max-width:1000px;
+  margin:auto;
+}
+
+/* LOGIN */
+
+.login-box{
+  max-width:430px;
+  margin:70px auto;
+  background:#181818;
+  border:1px solid #333;
+  border-radius:22px;
+  padding:28px;
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+
+.logo{
+  text-align:center;
+  font-size:30px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.login-subtitle{
+  text-align:center;
+  color:#999;
+  margin-bottom:28px;
+}
+
+.login-status{
+  text-align:center;
+  color:#888;
+  font-size:13px;
+  margin-top:12px;
+  min-height:18px;
+}
+
+label{
+  display:block;
+  color:#bbb;
+  font-size:14px;
+  margin-bottom:7px;
+}
+
+input,textarea,select{
+  width:100%;
+  background:#101010;
+  color:#fff;
+  border:1px solid #383838;
+  border-radius:12px;
+  padding:13px;
+  font-size:15px;
+  margin-bottom:15px;
+  outline:none;
+}
+
+input:focus,textarea:focus,select:focus{
+  border-color:#d8a35d;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+button{
+  border:0;
+  border-radius:12px;
+  padding:12px 16px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.primary{
+  background:#d8a35d;
+  color:#111;
+}
+
+.primary:hover{
+  background:#e7b976;
+}
+
+.dark{
+  background:#292929;
+  color:#fff;
+}
+
+.danger{
+  background:#752b2b;
+  color:#fff;
+}
+
+.login-button{
+  width:100%;
+}
+
+.error{
+  color:#ff7777;
+  text-align:center;
+  margin-top:12px;
+  font-size:14px;
+  min-height:18px;
+}
+
+/* HEADER */
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+header h1{
+  font-size:23px;
+}
+
+/* MENU / BAR */
+
+.type-switch{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.type-button{
+  background:#181818;
+  color:#999;
+  border:1px solid #333;
+  padding:16px;
+  font-size:18px;
+}
+
+.type-button.active{
+  background:#d8a35d;
+  color:#111;
+  border-color:#d8a35d;
+}
+
+/* CATEGORIES */
+
+.category-box{
+  background:#181818;
+  border:1px solid #333;
+  border-radius:18px;
+  padding:14px;
+  margin-bottom:20px;
+}
+
+.category-title{
+  color:#999;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.categories{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:3px;
+}
+
+.category{
+  white-space:nowrap;
+  background:#242424;
+  color:#aaa;
+  border:1px solid #3b3b3b;
+  padding:10px 14px;
+  border-radius:20px;
+}
+
+.category.active{
+  background:#d8a35d;
+  color:#111;
+  border-color:#d8a35d;
+}
+
+/* FORM */
+
+.form-box{
+  background:#181818;
+  border:1px solid #333;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:20px;
+}
+
+.form-title{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:18px;
+}
+
+.price-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.category-display{
+  background:#101010;
+  color:#d8a35d;
+  border:1px solid #383838;
+  border-radius:12px;
+  padding:13px;
+  margin-bottom:15px;
+}
+
+.preview{
+  width:100%;
+  max-height:280px;
+  object-fit:cover;
+  border-radius:14px;
+  margin-bottom:15px;
+  display:none;
+}
+
+.current-photo{
+  color:#888;
+  font-size:13px;
+  margin-top:-5px;
+  margin-bottom:15px;
+}
+
+.form-buttons{
+  display:flex;
+  gap:10px;
+}
+
+.form-buttons button{
+  flex:1;
+}
+
+/* LIST */
+
+.list-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+  gap:10px;
+}
+
+.list-title{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.count{
+  color:#888;
+  font-size:13px;
+}
+
+.dishes-list{
+  display:grid;
+  gap:12px;
+}
+
+.dish-card{
+  background:#181818;
+  border:1px solid #333;
+  border-radius:18px;
+  padding:14px;
+  display:flex;
+  gap:15px;
+}
+
+.dish-photo{
+  width:110px;
+  height:110px;
+  border-radius:14px;
+  object-fit:cover;
+  background:#101010;
+  flex-shrink:0;
+}
+
+.dish-info{
+  flex:1;
+  min-width:0;
+}
+
+.dish-name{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:5px;
+  word-break:break-word;
+}
+
+.dish-price{
+  color:#d8a35d;
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.dish-category{
+  color:#888;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.dish-description{
+  color:#aaa;
+  font-size:14px;
+  margin-bottom:12px;
+  word-break:break-word;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+}
+
+.actions button{
+  padding:9px 12px;
+  font-size:13px;
+}
+
+.empty{
+  text-align:center;
+  color:#777;
+  background:#181818;
+  border:1px solid #333;
+  border-radius:18px;
+  padding:35px 15px;
+}
+
+.loading{
+  text-align:center;
+  color:#888;
+  padding:30px;
+}
+
+/* MOBILE */
+
+@media(max-width:650px){
+
+  body{
+    padding:10px;
+  }
+
+  header{
+    align-items:flex-start;
+  }
+
+  header h1{
+    font-size:19px;
+  }
+
+  header .danger{
+    padding:9px 11px;
+    font-size:13px;
+  }
+
+  .login-box{
+    margin:30px auto;
+    padding:20px;
+  }
+
+  .price-row{
+    grid-template-columns:1fr;
+    gap:0;
+  }
+
+  .dish-card{
+    flex-direction:column;
+  }
+
+  .dish-photo{
+    width:100%;
+    height:190px;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .actions button{
+    width:100%;
+  }
+
+  .form-buttons{
+    flex-direction:column;
+  }
+}
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="loginPage">
+
+  <div class="login-box">
+
+    <div class="logo">🍽️ KURKODIK</div>
+
+    <div class="login-subtitle">
+      Panel administratora
+    </div>
+
+    <label>Email</label>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Adres e-mail"
+      autocomplete="username"
+    >
+
+    <label>Hasło</label>
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Hasło"
+      autocomplete="current-password"
+    >
+
+    <button
+      class="primary login-button"
+      id="loginBtn"
+    >
+      Zaloguj się
+    </button>
+
+    <div
+      class="login-status"
+      id="loginStatus"
+    ></div>
+
+    <div
+      class="error"
+      id="loginError"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<div id="adminPage" class="hidden">
+
+<header>
+
+  <h1>🍽️ Panel administracyjny</h1>
+
+  <button
+    class="danger"
+    id="logoutBtn"
+  >
+    Wyloguj
+  </button>
+
+</header>
+
+
+<div class="type-switch">
+
+  <button
+    class="type-button active"
+    id="menuTypeBtn"
+  >
+    🍽️ MENU
+  </button>
+
+  <button
+    class="type-button"
+    id="barTypeBtn"
+  >
+    🍹 BAR
+  </button>
+
+</div>
+
+
+<div class="category-box">
+
+  <div class="category-title">
+    Wybierz kategorię
+  </div>
+
+  <div
+    class="categories"
+    id="categories"
+  ></div>
+
+</div>
+
+
+<div class="form-box">
+
+  <div
+    class="form-title"
+    id="formTitle"
+  >
+    ➕ Dodaj pozycję
+  </div>
+
+  <label>Nazwa</label>
+
+  <input
+    id="name"
+    type="text"
+    placeholder="np. Stek Ribeye"
+  >
+
+  <div class="price-row">
+
+    <div>
+ 
+      <label>Cena</label>
+
+      <input
+        id="price"
+        type="number"
+        step="0.01"
+        placeholder="59"
+      >
+
+    </div>
+
+    <div>
+
+      <label>Kategoria</label>
+
+      <div
+        class="category-display"
+        id="categoryName"
+      >
+        🥩 Steki
+      </div>
+
+    </div>
+
+  </div>
+
+  <label>Opis</label>
+
+  <textarea
+    id="description"
+    placeholder="Opis dania..."
+  ></textarea>
+
+  <label>Składniki</label>
+
+  <textarea
+    id="ingredients"
+    placeholder="np. wołowina, sól, pieprz..."
+  ></textarea>
+
+  <label>Alergeny</label>
+
+  <textarea
+    id="allergens"
+    placeholder="np. mleko, gluten..."
+  ></textarea>
+
+  <label>Zdjęcie</label>
+
+  <input
+    id="photo"
+    type="file"
+    accept="image/*"
+  >
+
+  <div
+    class="current-photo"
+    id="currentPhoto"
+  ></div>
+
+  <img
+    id="preview"
+    class="preview"
+    alt="Podgląd"
+  >
+
+  <div class="form-buttons">
+
+    <button
+      class="primary"
+      id="saveBtn"
+    >
+      💾 Zapisz
+    </button>
+
+    <button
+      class="dark"
+      id="cancelBtn"
+    >
+      Anuluj
+    </button>
+
+  </div>
+
+</div>
+
+
+<div class="list-header">
+
+  <div class="list-title">
+    Pozycje
+  </div>
+
+  <div
+    class="count"
+    id="count"
+  >
+    0
+  </div>
+
+</div>
+
+
+<div
+  class="dishes-list"
+  id="dishesList"
+></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyDFP5FWKwuMifp67LhRMbABVwv16NmHrf8",
+
+  authDomain:
+    "kurkodik2.firebaseapp.com",
+
+  projectId:
+    "kurkodik2",
+
+  storageBucket:
+    "kurkodik2.firebasestorage.app",
+
+  messagingSenderId:
+    "68141393475",
+
+  appId:
+    "1:68141393475:web:6eeb35e6059f6aebda16f6",
+
+  measurementId:
+    "G-Q2Q83TKEV9"
+
+};
+
+
+/* =========================
+   FIREBASE START
+========================= */
+
+let firebaseReady = false;
+
+try{
+
+  firebase.initializeApp(firebaseConfig);
+
+  firebaseReady = true;
+
+}catch(error){
+
+  console.error(
+    "Firebase initialization error:",
+    error
+  );
+
+}
+
+
+const auth =
+  firebase.auth();
+
+const db =
+  firebase.firestore();
+
+
+/* =========================
+   CLOUDINARY
+========================= */
+
+const cloudName =
+  "wtaymmya";
+
+const uploadPreset =
+  "Kurkodik_menu";
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+const categories = {
+
+  menu: [
+
+    {
+      id:"steki",
+      name:"🥩 Steki"
+    },
+
+    {
+      id:"dania",
+      name:"🍽️ Dania"
+    },
+
+    {
+      id:"desery",
+      name:"🍰 Desery"
+    },
+
+    {
+      id:"salatki",
+      name:"🥗 Sałatki"
+    }
+
+  ],
+
+  bar: [
+
+    {
+      id:"koktajle",
+      name:"🍸 Koktajle"
+    },
+
+    {
+      id:"soki",
+      name:"🧃 Soki"
+    },
+
+    {
+      id:"wino",
+      name:"🍷 Wino"
+    },
+
+    {
+      id:"napoje",
+      name:"🥤 Napoje"
+    }
+
+  ]
+
+};
+
+
+/* =========================
+   STATE
+========================= */
+
+let currentType =
+  "menu";
+
+let currentCategory =
+  "steki";
+
+let editingId =
+  null;
+
+let currentPhotoUrl =
+  "";
+
+let loadingDishes =
+  false;
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const loginPage =
+  document.getElementById("loginPage");
+
+const adminPage =
+  document.getElementById("adminPage");
+
+const loginBtn =
+  document.getElementById("loginBtn");
+
+const logoutBtn =
+  document.getElementById("logoutBtn");
+
+const loginError =
+  document.getElementById("loginError");
+
+const loginStatus =
+  document.getElementById("loginStatus");
+
+const menuTypeBtn =
+  document.getElementById("menuTypeBtn");
+
+const barTypeBtn =
+  document.getElementById("barTypeBtn");
+
+const categoriesBox =
+  document.getElementById("categories");
+
+const nameInput =
+  document.getElementById("name");
+
+const priceInput =
+  document.getElementById("price");
+
+const categoryNameInput =
+  document.getElementById("categoryName");
+
+const descriptionInput =
+  document.getElementById("description");
+
+const ingredientsInput =
+  document.getElementById("ingredients");
+
+const allergensInput =
+  document.getElementById("allergens");
+
+const photoInput =
+  document.getElementById("photo");
+
+const preview =
+  document.getElementById("preview");
+
+const currentPhoto =
+  document.getElementById("currentPhoto");
+
+const saveBtn =
+  document.getElementById("saveBtn");
+
+const cancelBtn =
+  document.getElementById("cancelBtn");
+
+const dishesList =
+  document.getElementById("dishesList");
+
+const formTitle =
+  document.getElementById("formTitle");
+
+const count =
+  document.getElementById("count");
+
+
+/* =========================
+   TIMEOUT
+========================= */
+
+function withTimeout(
+  promise,
+  milliseconds
+){
+
+  return Promise.race([
+
+    promise,
+
+    new Promise(
+      function(resolve,reject){
+
+        setTimeout(
+          function(){
+
+            reject(
+              new Error(
+                "Firebase nie odpowiedział przez " +
+                Math.round(
+                  milliseconds / 1000
+                ) +
+                " sekund."
+              )
+            );
+
+          },
+          milliseconds
+        );
+
+      }
+    )
+
+  ]);
+
+}
+
+
+/* =========================
+   FIREBASE ERROR
+========================= */
+
+function firebaseErrorMessage(error){
+
+  if(!error){
+
+    return "Nieznany błąd Firebase.";
+
+  }
+
+  console.error(
+    "Firebase error:",
+    error
+  );
+
+  switch(error.code){
+
+    case "auth/user-not-found":
+      return "Nie znaleziono użytkownika.";
+
+    case "auth/wrong-password":
+      return "Nieprawidłowe hasło.";
+
+    case "auth/invalid-email":
+      return "Nieprawidłowy adres e-mail.";
+
+    case "auth/invalid-credential":
+      return "Nieprawidłowy email lub hasło.";
+
+    case "auth/too-many-requests":
+      return "Za dużo prób. Spróbuj później.";
+
+    case "auth/network-request-failed":
+      return "Problem z połączeniem z Firebase.";
+
+    case "auth/user-disabled":
+      return "To konto zostało wyłączone.";
+
+    case "permission-denied":
+      return "Brak uprawnień do Firestore.";
+
+    case "failed-precondition":
+      return "Firebase wymaga dodatkowej konfiguracji.";
+
+    case "unavailable":
+      return "Firestore jest chwilowo niedostępny.";
+
+    default:
+
+      if(
+        error.message &&
+        error.message.includes(
+          "API key not valid"
+        )
+      ){
+
+        return "Nieprawidłowy klucz API Firebase.";
+
+      }
+
+      return error.message ||
+        "Wystąpił błąd Firebase.";
+
+  }
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+loginBtn.onclick =
+async function(){
+
+  const email =
+    document
+      .getElementById("email")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("password")
+      .value;
+
+  loginError.textContent =
+    "";
+
+  if(!email){
+
+    loginError.textContent =
+      "Wpisz email.";
+
+    return;
+
+  }
+
+  if(!password){
+
+    loginError.textContent =
+      "Wpisz hasło.";
+
+    return;
+
+  }
+
+  if(!firebaseReady){
+
+    loginError.textContent =
+      "Firebase nie został uruchomiony.";
+
+    return;
+
+  }
+
+  loginBtn.disabled =
+    true;
+
+  loginBtn.textContent =
+    "Logowanie...";
+
+  loginStatus.textContent =
+    "Łączenie z Firebase...";
+
+  try{
+
+    await withTimeout(
+
+      auth.signInWithEmailAndPassword(
+        email,
+        password
+      ),
+
+      12000
+
+    );
+
+    loginStatus.textContent =
+      "Zalogowano.";
+
+  }catch(error){
+
+    console.error(error);
+
+    loginError.textContent =
+      firebaseErrorMessage(error);
+
+    loginStatus.textContent =
+      "";
+
+    loginBtn.disabled =
+      false;
+
+    loginBtn.textContent =
+      "Zaloguj się";
+
+  }
+
+};
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+logoutBtn.onclick =
+async function(){
+
+  try{
+
+    await auth.signOut();
+
+  }catch(error){
+
+    alert(
+      "Błąd wylogowania:\n" +
+      error.message
+    );
+
+  }
+
+};
+
+
+/* =========================
+   AUTH
+========================= */
+
+auth.onAuthStateChanged(
+function(user){
+
+  if(user){
+
+    loginPage.classList.add("hidden");
+
+    adminPage.classList.remove("hidden");
+
+    loginError.textContent =
+      "";
+
+    loginStatus.textContent =
+      "";
+
+    loginBtn.disabled =
+      false;
+
+    loginBtn.textContent =
+      "Zaloguj się";
+
+    updateTypeButtons();
+
+    renderCategories();
+
+    loadDishes();
+
+  }else{
+
+    loginPage.classList.remove("hidden");
+
+    adminPage.classList.add("hidden");
+
+    loginBtn.disabled =
+      false;
+
+    loginBtn.textContent =
+      "Zaloguj się";
+
+  }
+
+});
+
+
+/* =========================
+   MENU
+========================= */
+
+menuTypeBtn.onclick =
+function(){
+
+  if(currentType === "menu"){
+    return;
+  }
+
+  currentType =
+    "menu";
+
+  currentCategory =
+    "steki";
+
+  resetForm();
+
+  updateTypeButtons();
+
+  renderCategories();
+
+  loadDishes();
+
+};
+
+
+/* =========================
+   BAR
+========================= */
+
+barTypeBtn.onclick =
+function(){
+
+  if(currentType === "bar"){
+    return;
+  }
+
+  currentType =
+    "bar";
+
+  currentCategory =
+    "koktajle";
+
+  resetForm();
+
+  updateTypeButtons();
+
+  renderCategories();
+
+  loadDishes();
+
+};
+
+
+/* =========================
+   TYPE BUTTONS
+========================= */
+
+function updateTypeButtons(){
+
+  menuTypeBtn.classList.toggle(
+    "active",
+    currentType === "menu"
+  );
+
+  barTypeBtn.classList.toggle(
+    "active",
+    currentType === "bar"
+  );
+
+}
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+function renderCategories(){
+
+  categoriesBox.innerHTML =
+    "";
+
+  categories[currentType].forEach(
+  function(category){
+
+    const button =
+      document.createElement("button");
+
+    button.type =
+      "button";
+
+    button.className =
+      "category";
+
+    if(
+      category.id ===
+      currentCategory
+    ){
+
+      button.classList.add(
+        "active"
+      );
+
+    }
+
+    button.textContent =
+      category.name;
+
+    button.onclick =
+    function(){
+
+      currentCategory =
+        category.id;
+
+      resetForm();
+
+      renderCategories();
+
+      loadDishes();
+
+    };
+
+    categoriesBox.appendChild(
+      button
+    );
+
+  });
+
+  updateCategoryName();
+
+}
+
+
+/* =========================
+   CATEGORY NAME
+========================= */
+
+function updateCategoryName(){
+
+  const category =
+    categories[currentType].find(
+    function(item){
+
+      return item.id ===
+        currentCategory;
+
+    });
+
+  categoryNameInput.textContent =
+    category
+      ? category.name
+      : "";
+
+}
+
+
+/* =========================
+   CLOUDINARY
+========================= */
+
+async function uploadPhoto(file){
+
+  if(!file){
+    return "";
+  }
+
+  if(
+    !file.type.startsWith("image/")
+  ){
+
+    throw new Error(
+      "Wybrany plik nie jest zdjęciem."
+    );
+
+  }
+
+  const formData =
+    new FormData();
+
+  formData.append(
+    "file",
+    file
+  );
+
+  formData.append(
+    "upload_preset",
+    uploadPreset
+  );
+
+  const response =
+    await fetch(
+
+      `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+
+      {
+        method:"POST",
+        body:formData
+      }
+
+    );
+
+  if(!response.ok){
+
+    let message =
+      "Cloudinary nie może przesłać zdjęcia.";
+
+    try{
+
+      const errorData =
+        await response.json();
+
+      message =
+        errorData.error?.message ||
+        message;
+
+    }catch(e){}
+
+    throw new Error(
+      message
+    );
+
+  }
+
+  const data =
+    await response.json();
+
+  if(!data.secure_url){
+
+    throw new Error(
+      "Nie udało się przesłać zdjęcia."
+    );
+
+  }
+
+  return data.secure_url;
+
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+saveBtn.onclick =
+async function(){
+
+  const name =
+    nameInput.value.trim();
+
+  const price =
+    priceInput.value.trim();
+
+  const description =
+    descriptionInput.value.trim();
+
+  const ingredients =
+    ingredientsInput.value.trim();
+
+  const allergens =
+    allergensInput.value.trim();
+
+  const file =
+    photoInput.files[0];
+
+  if(!name){
+
+    alert("Wpisz nazwę.");
+
+    nameInput.focus();
+
+    return;
+
+  }
+
+  if(!price){
+
+    alert("Wpisz cenę.");
+
+    priceInput.focus();
+
+    return;
+
+  }
+
+  const numericPrice =
+    Number(price);
+
+  if(
+    !Number.isFinite(numericPrice) ||
+    numericPrice < 0
+  ){
+
+    alert(
+      "Wpisz prawidłową cenę."
+    );
+
+    priceInput.focus();
+
+    return;
+
+  }
+
+  saveBtn.disabled =
+    true;
+
+  saveBtn.textContent =
+    editingId
+      ? "Zapisywanie zmian..."
+      : "Zapisywanie...";
+
+  try{
+
+    let photo =
+      currentPhotoUrl;
+
+    if(file){
+
+      saveBtn.textContent =
+        "Przesyłanie zdjęcia...";
+
+      photo =
+        await withTimeout(
+          uploadPhoto(file),
+          30000
+        );
+
+    }
+
+    const data = {
+
+      name:name,
+
+      price:numericPrice,
+
+      description:description,
+
+      ingredients:ingredients,
+
+      allergens:allergens,
+
+      type:currentType,
+
+      category:currentCategory,
+
+      photo:photo || "",
+
+      updatedAt:
+        firebase.firestore
+          .FieldValue
+          .serverTimestamp()
+
+    };
+
+    if(editingId){
+
+      await withTimeout(
+
+        db
+          .collection("dishes")
+          .doc(editingId)
+          .update(data),
+
+        12000
+
+      );
+
+    }else{
+
+      data.createdAt =
+        firebase.firestore
+          .FieldValue
+          .serverTimestamp();
+
+      await withTimeout(
+
+        db
+          .collection("dishes")
+          .add(data),
+
+        12000
+
+      );
+
+    }
+
+    alert(
+      editingId
+        ? "Pozycja została zaktualizowana."
+        : "Pozycja została dodana."
+    );
+
+    resetForm();
+
+    await loadDishes();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Błąd:\n\n" +
+      firebaseErrorMessage(error)
+    );
+
+  }finally{
+
+    saveBtn.disabled =
+      false;
+
+    saveBtn.textContent =
+      "💾 Zapisz";
+
+  }
+
+};
+
+
+/* =========================
+   LOAD DISHES
+========================= */
+
+async function loadDishes(){
+
+  if(!auth.currentUser){
+    return;
+  }
+
+  if(loadingDishes){
+    return;
+  }
+
+  loadingDishes =
+    true;
+
+  dishesList.innerHTML =
+    `<div class="loading">
+      Ładowanie pozycji...
+    </div>`;
+
+  count.textContent =
+    "0";
+
+  try{
+
+    const snapshot =
+      await withTimeout(
+
+        db
+          .collection("dishes")
+          .where(
+            "type",
+            "==",
+            currentType
+          )
+          .where(
+            "category",
+            "==",
+            currentCategory
+          )
+          .get(),
+
+        12000
+
+      );
+
+    const dishes = [];
+
+    snapshot.forEach(
+    function(docItem){
+
+      const data =
+        docItem.data();
+
+      dishes.push({
+
+        id:
+          docItem.id,
+
+        name:
+          data.name || "",
+
+        price:
+          data.price ?? "",
+
+        description:
+          data.description || "",
+
+        ingredients:
+          data.ingredients || "",
+
+        allergens:
+          data.allergens || "",
+
+        photo:
+          data.photo || "",
+
+        createdAt:
+          data.createdAt
+
+      });
+
+    });
+
+    dishes.sort(
+    function(a,b){
+
+      const aTime =
+        a.createdAt?.toMillis
+          ? a.createdAt.toMillis()
+          : 0;
+
+      const bTime =
+        b.createdAt?.toMillis
+          ? b.createdAt.toMillis()
+          : 0;
+
+      return bTime - aTime;
+
+    });
+
+    count.textContent =
+      dishes.length;
+
+    if(dishes.length === 0){
+
+      dishesList.innerHTML =
+        `<div class="empty">
+          Brak pozycji w tej kategorii.
+        </div>`;
+
+      return;
+
+    }
+
+    dishesList.innerHTML =
+      "";
+
+    dishes.forEach(
+    function(dish){
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "dish-card";
+
+      const photo =
+        dish.photo ||
+        "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800";
+
+      card.innerHTML = `
+
+        <img
+          class="dish-photo"
+          src="${escapeHtml(photo)}"
+          alt=""
+          onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800'"
+        >
+
+        <div class="dish-info">
+
+          <div class="dish-name">
+            ${escapeHtml(dish.name)}
+          </div>
+
+          <div class="dish-price">
+            ${escapeHtml(String(dish.price))} zł
+          </div>
+
+          <div class="dish-category">
+            ${escapeHtml(
+              getCategoryName(
+                currentType,
+                currentCategory
+              )
+            )}
+          </div>
+
+          <div class="dish-description">
+            ${escapeHtml(dish.description)}
+          </div>
+
+          <div class="actions">
+
+            <button
+              class="primary"
+              data-edit
+            >
+              ✏️ Edytuj
+            </button>
+
+            <button
+              class="danger"
+              data-delete
+            >
+              🗑 Usuń
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+      card
+        .querySelector("[data-edit]")
+        .onclick =
+        function(){
+
+          editDish(dish);
+
+        };
+
+      card
+        .querySelector("[data-delete]")
+        .onclick =
+        function(){
+
+          deleteDish(dish.id);
+
+        };
+
+      dishesList.appendChild(card);
+
+    });
+
+  }catch(error){
+
+    console.error(error);
+
+    dishesList.innerHTML =
+      `<div class="empty">
+        Błąd pobierania danych:<br><br>
+        ${escapeHtml(
+          firebaseErrorMessage(error)
+        )}
+      </div>`;
+
+  }finally{
+
+    loadingDishes =
+      false;
+
+  }
+
+}
+
+
+/* =========================
+   EDIT
+========================= */
+
+function editDish(dish){
+
+  editingId =
+    dish.id;
+
+  currentPhotoUrl =
+    dish.photo || "";
+
+  formTitle.textContent =
+    "✏️ Edytuj pozycję";
+
+  nameInput.value =
+    dish.name || "";
+
+  priceInput.value =
+    dish.price ?? "";
+
+  descriptionInput.value =
+    dish.description || "";
+
+  ingredientsInput.value =
+    dish.ingredients || "";
+
+  allergensInput.value =
+    dish.allergens || "";
+
+  photoInput.value =
+    "";
+
+  if(dish.photo){
+
+    preview.src =
+      dish.photo;
+
+    preview.style.display =
+      "block";
+
+    currentPhoto.textContent =
+      "Obecne zdjęcie zostanie zachowane, jeśli nie wybierzesz nowego.";
+
+  }else{
+
+    preview.src =
+      "";
+
+    preview.style.display =
+      "none";
+
+    currentPhoto.textContent =
+      "";
+
+  }
+
+  saveBtn.textContent =
+    "💾 Zapisz zmiany";
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+async function deleteDish(id){
+
+  const confirmed =
+    confirm(
+      "Czy na pewno chcesz usunąć tę pozycję?"
+    );
+
+  if(!confirmed){
+    return;
+  }
+
+  try{
+
+    await withTimeout(
+
+      db
+        .collection("dishes")
+        .doc(id)
+        .delete(),
+
+      12000
+
+    );
+
+    await loadDishes();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Błąd usuwania:\n\n" +
+      firebaseErrorMessage(error)
+    );
+
+  }
+
+}
+
+
+/* =========================
+   PHOTO PREVIEW
+========================= */
+
+photoInput.onchange =
+function(){
+
+  const file =
+    photoInput.files[0];
+
+  if(!file){
+
+    if(currentPhotoUrl){
+
+      preview.src =
+        currentPhotoUrl;
+
+      preview.style.display =
+        "block";
+
+    }else{
+
+      preview.src =
+        "";
+
+      preview.style.display =
+        "none";
+
+    }
+
+    return;
+
+  }
+
+  if(
+    !file.type.startsWith("image/")
+  ){
+
+    alert(
+      "Wybierz plik graficzny."
+    );
+
+    photoInput.value =
+      "";
+
+    return;
+
+  }
+
+  const objectUrl =
+    URL.createObjectURL(file);
+
+  preview.src =
+    objectUrl;
+
+  preview.style.display =
+    "block";
+
+  currentPhoto.textContent =
+    "Nowe zdjęcie zostanie przesłane po zapisaniu.";
+
+};
+
+
+/* =========================
+   CANCEL
+========================= */
+
+cancelBtn.onclick =
+function(){
+
+  resetForm();
+
+};
+
+
+/* =========================
+   RESET FORM
+========================= */
+
+function resetForm(){
+
+  editingId =
+    null;
+
+  currentPhotoUrl =
+    "";
+
+  formTitle.textContent =
+    "➕ Dodaj pozycję";
+
+  nameInput.value =
+    "";
+
+  priceInput.value =
+    "";
+
+  descriptionInput.value =
+    "";
+
+  ingredientsInput.value =
+    "";
+
+  allergensInput.value =
+    "";
+
+  photoInput.value =
+    "";
+
+  preview.src =
+    "";
+
+  preview.style.display =
+    "none";
+
+  currentPhoto.textContent =
+    "";
+
+  saveBtn.textContent =
+    "💾 Zapisz";
+
+  updateCategoryName();
+
+}
+
+
+/* =========================
+   CATEGORY NAME
+========================= */
+
+function getCategoryName(
+  type,
+  category
+){
+
+  const item =
+    categories[type].find(
+    function(x){
+
+      return x.id ===
+        category;
+
+    });
+
+  return item
+    ? item.name
+    : category;
+
+}
+
+
+/* =========================
+   HTML ESCAPE
+========================= */
+
+function escapeHtml(value){
+
+  return String(
+    value ?? ""
+  )
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   ENTER LOGIN
+========================= */
+
+document
+  .getElementById("password")
+  .addEventListener(
+    "keydown",
+    function(event){
+
+      if(event.key === "Enter"){
+
+        loginBtn.click();
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   START
+========================= */
+
+updateTypeButtons();
+
+renderCategories();
+
+
+/* =========================
+   CONNECTION CHECK
+========================= */
+
+setTimeout(
+function(){
+
+  if(
+    !auth.currentUser &&
+    loginStatus.textContent ===
+    "Łąचेние z Firebase..."
+  ){
+
+    loginStatus.textContent =
+      "Firebase odpowiada zbyt długo. Sprawdź połączenie.";
+
+  }
+
+},
+10000
+);
+
+</script>
+
+</body>
+</html>
